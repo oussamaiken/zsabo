@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title data-i18n="title">Premium Székhelyszolgáltatás Budapesten | Szabó</title>
+  <meta name="description" data-i18n="meta.description" content="Professzionális székhelyszolgáltatás Budapesten. Teljes körű irodakezelés, levelezési cím, digitális megoldások vállalkozásoknak.">
+  <meta name="keywords" content="székhelyszolgáltatás, Budapest, cégalapítás, levelezési cím">
+  <meta property="og:title" data-i18n="title" content="Premium Székhelyszolgáltatás Budapesten | Szabó">
+  <meta property="og:description" data-i18n="meta.og-description" content="Professzionális székhelyszolgáltatás Budapesten. Teljes körű irodakezelés, levelezési cím, digitális megoldások vállalkozásoknak.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1550684848-86a5d8722527?auto=format&fit=crop&w=800&q=80">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <style>
+    :root {
+      --bg-dark: #0a0a1a;
+      --text-light: #e6e6e6;
+      --blue-accent: #1e90ff;
+      --blue-dark: #1c3d7a;
+      --blue-light: #87cefa;
+      --card-bg: rgba(20, 20, 40, 0.8);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --box-shadow: 0 8px 32px rgba(30, 144, 255, 0.2);
+      --text-dark: #333;
+      --bg-color: var(--bg-dark);
+      --text-color: var(--text-light);
+      --card-bg-color: var(--card-bg);
+      --glass-bg-color: var(--glass-bg);
+      --box-shadow-color: var(--box-shadow);
+    }
+
+    [data-theme="white"] {
+      --bg-color: #f5f7fa;
+      --text-color: var(--text-dark);
+      --card-bg-color: rgba(255, 255, 255, 0.9);
+      --glass-bg-color: rgba(255, 255, 255, 0.3);
+      --box-shadow-color: 0 8px 32px rgba(30, 144, 255, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-color);
+      background: var(--bg-color);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(10, 10, 26, 0.9), rgba(30, 144, 255, 0.1));
+    }
+
+    [data-theme="white"] .hero {
+      background: linear-gradient(180deg, rgba(245, 247, 250, 0.9), rgba(30, 144, 255, 0.2));
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1550684848-86a5d8722527?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+      z-index: -1;
+      transform: scale(1.1);
+    }
+
+    .hero-circle {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: var(--glass-bg-color);
+      backdrop-filter: blur(10px);
+      box-shadow: var(--box-shadow-color);
+      overflow: hidden;
+      z-index: 0;
+      transition: transform 0.3s ease;
+    }
+
+    .hero-circle img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .hero-circle.left {
+      left: 5%;
+      top: 20%;
+    }
+
+    .hero-circle.right {
+      right: 5%;
+      top: 50%;
+    }
+
+    .hero-circle:hover {
+      transform: scale(1.1);
+    }
+
+    .hero-content {
+      text-align: center;
+      max-width: 700px;
+      padding: 40px;
+      background: var(--glass-bg-color);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--box-shadow-color);
+      z-index: 1;
+    }
+
+    .hero-content h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--blue-accent);
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .hero-price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      margin: 20px 0;
+      padding: 15px;
+      background: var(--glass-bg-color);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
+      display: inline-block;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--blue-accent);
+      color: var(--bg-dark);
+      border: 1px solid var(--blue-accent);
+    }
+
+    [data-theme="white"] .btn-primary {
+      color: #fff;
+    }
+
+    .btn-primary::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
+    }
+
+    .btn-primary:hover::after {
+      left: 100%;
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--blue-accent);
+      border: 1px solid var(--blue-accent);
+    }
+
+    .btn-outline:hover {
+      background: var(--blue-accent);
+      color: var(--bg-dark);
+    }
+
+    [data-theme="white"] .btn-outline:hover {
+      color: #fff;
+    }
+
+    nav.navbar {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 15px 5%;
+    }
+
+    [data-theme="white"] nav.navbar {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    nav.navbar.scrolled {
+      background: rgba(0, 0, 0, 0.9);
+      box-shadow: var(--box-shadow-color);
+    }
+
+    [data-theme="white"] nav.navbar.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .navbar-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      text-decoration: none;
+    }
+
+    .navbar-list {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .navbar-item {
+      position: relative;
+    }
+
+    .navbar-link {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px;
+      display: block;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .navbar-link:hover {
+      color: var(--blue-accent);
+    }
+
+    .navbar-link::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+      width: 0;
+      height: 2px;
+      background: var(--blue-accent);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-link:hover::after {
+      width: calc(100% - 20px);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      display: none;
+      background: var(--card-bg-color);
+      border-radius: 10px;
+      padding: 10px 0;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      box-shadow: var(--box-shadow-color);
+      z-index: 1001;
+    }
+
+    .navbar-item:hover .dropdown-menu {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    .dropdown-link {
+      color: var(--text-color);
+      text-decoration: none;
+      display: block;
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-link:hover {
+      background: rgba(30, 144, 255, 0.1);
+      color: var(--blue-accent);
+      transform: translateX(5px);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--blue-accent);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .theme-toggle, .lang-toggle {
+      background: none;
+      border: none;
+      color: var(--blue-accent);
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 8px;
+      margin: 0 5px;
+      border-radius: 50%;
+    }
+
+    .theme-toggle:hover, .lang-toggle:hover {
+      color: var(--blue-light);
+      background: rgba(30, 144, 255, 0.1);
+    }
+
+    .lang-toggle.active {
+      background: var(--blue-accent);
+      color: var(--bg-dark);
+    }
+
+    [data-theme="white"] .lang-toggle.active {
+      color: #fff;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pricing-section {
+      padding: 100px 5%;
+      text-align: center;
+      background: var(--bg-color);
+    }
+
+    .section-title {
+      margin-bottom: 50px;
+    }
+
+    .section-title h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: var(--blue-accent);
+    }
+
+    .section-title p {
+      color: var(--text-color);
+      max-width: 600px;
+      margin: 0 auto;
+      opacity: 0.8;
+    }
+
+    .main-price {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      margin: 40px 0;
+      padding: 20px;
+      background: var(--glass-bg-color);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
+      display: inline-block;
+    }
+
+    .pricing-btn {
+      padding: 15px 40px;
+      background: var(--blue-accent);
+      color: var(--bg-dark);
+      border: none;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
+    }
+
+    [data-theme="white"] .pricing-btn {
+      color: #fff;
+    }
+
+    .pricing-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(30, 144, 255, 0.5);
+    }
+
+    .features-section {
+      padding: 100px 5%;
+      background: linear-gradient(180deg, var(--card-bg-color), var(--bg-color));
+    }
+
+    [data-theme="white"] .features-section {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), var(--bg-color));
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--card-bg-color);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: var(--box-shadow-color);
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 40px rgba(30, 144, 255, 0.2);
+    }
+
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--blue-accent);
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .feature-card:hover .feature-icon {
+      transform: rotate(360deg);
+    }
+
+    .feature-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+
+    .feature-text {
+      color: var(--text-color);
+      font-size: 0.95rem;
+      opacity: 0.8;
+    }
+
+    .contact-section {
+      padding: 100px 5%;
+      background: var(--bg-color);
+    }
+
+    .contact-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 50px;
+    }
+
+    .contact-info h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: var(--blue-accent);
+      margin-bottom: 20px;
+    }
+
+    .contact-info p {
+      margin-bottom: 20px;
+      opacity: 0.8;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .contact-icon {
+      margin-right: 15px;
+      font-size: 1.3rem;
+      color: var(--blue-accent);
+    }
+
+    .contact-form {
+      background: var(--card-bg-color);
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow-color);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: var(--blue-accent);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--blue-accent);
+      border-radius: 10px;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      transition: all 0.3s ease;
+    }
+
+    [data-theme="white"] .form-control {
+      background: #fff;
+      color: var(--text-dark);
+    }
+
+    .form-control:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(30, 144, 255, 0.3);
+    }
+
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .submit-btn {
+      background: var(--blue-accent);
+      color: var(--bg-dark);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px rgba(30, 144, 255, 0.3);
+    }
+
+    [data-theme="white"] .submit-btn {
+      color: #fff;
+    }
+
+    .submit-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 25px rgba(30, 144, 255, 0.5);
+    }
+
+    .form-message {
+      margin-top: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      display: none;
+    }
+
+    .form-message.success {
+      background: rgba(30, 144, 255, 0.2);
+      color: var(--blue-accent);
+    }
+
+    .form-message.error {
+      background: rgba(255, 0, 0, 0.2);
+      color: #ff0000;
+    }
+
+    footer {
+      background: var(--card-bg-color);
+      padding: 60px 5% 20px;
+      color: var(--text-color);
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--blue-accent);
+    }
+
+    .footer-about p {
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      background: var(--glass-bg-color);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--blue-accent);
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--blue-accent);
+      color: var(--bg-dark);
+      transform: rotate(360deg);
+    }
+
+    [data-theme="white"] .social-link:hover {
+      color: #fff;
+    }
+
+    .footer-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--blue-accent);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-link {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--blue-accent);
+      padding-left: 5px;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(30, 144, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 992px) {
+      .navbar-list {
+        display: none;
+      }
+
+      .navbar-list.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--card-bg-color);
+        padding: 20px;
+        box-shadow: var(--box-shadow-color);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .dropdown-menu {
+        position: static;
+        background: rgba(30, 144, 255, 0.05);
+        box-shadow: none;
+      }
+
+      .navbar-item:hover .dropdown-menu {
+        display: none;
+      }
+
+      .navbar-item.active .dropdown-menu {
+        display: block;
+      }
+
+      .hero-content {
+        padding: 30px;
+        max-width: 90%;
+      }
+
+      .hero-content h1 {
+        font-size: 2.2rem;
+      }
+
+      .hero-price {
+        font-size: 2rem;
+      }
+
+      .hero-circle {
+        width: 150px;
+        height: 150px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-price {
+        font-size: 3rem;
+      }
+
+      .section-title h2 {
+        font-size: 2rem;
+      }
+
+      .hero-circle {
+        display: none;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .btn {
+        width: 100%;
+      }
+
+      .main-price {
+        font-size: 2.5rem;
+      }
+
+      .lang-toggle {
+        font-size: 1rem;
+        padding: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">Szabó</a>
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+      <ul class="navbar-list">
+        <li class="navbar-item">
+          <a href="#" class="navbar-link" data-i18n="nav.registered-office">Székhelyszolgáltatás</a>
+          <ul class="dropdown-menu">
+            <li><a href="mi-a-szekhely.html" class="dropdown-link" data-i18n="nav.what-is-registered-office">Mi a székhely</a></li>
+            <li><a href="Székhely_szolgálat.html" class="dropdown-link" data-i18n="nav.office-service">Székhely szolgálat</a></li>
+            <li><a href="Székhely-szolgáltatás.html" class="dropdown-link" data-i18n="nav.registered-office-service">Székhely-szolgáltatás</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.registered-office-contract">Székhelyszolgáltatás szerződés</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.contract-on-saturday">Szerződés szombaton</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.registered-office-budapest">Székhelyszolgáltatás Budapest</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.registered-office-sole-proprietors">Székhelyszolgáltatás egyéni vállalkozóknak</a></li>
+          </ul>
+        </li>
+        <li class="navbar-item">
+          <a href="#" class="navbar-link" data-i18n="nav.services">Szolgáltatások</a>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="dropdown-link" data-i18n="nav.company-formation-budapest">Cégalapítás Budapest</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.free-service">Ingyen szolgáltatás</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.mail-scanning">Levelek szkennelése</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.authorization">Meghatalmazás</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.tax-card-request">Adókártya igénylés</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.delivery-agent">Kézbesítési megbízott</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.mailing-address-service">Levelezési cím szolgáltatás</a></li>
+          </ul>
+        </li>
+        <li class="navbar-item">
+          <a href="#" class="navbar-link" data-i18n="nav.company-formation">Cégalapítás</a>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="dropdown-link" data-i18n="nav.company-formation">Cégalapítás</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.company-name-selection">Cégnév választás</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.how-to-start-business">Hogyan kezdjünk a vállalkozásba</a></li>
+            <li><a href="#" class="dropdown-link" data-i18n="nav.how-to-transfer-fee">Hogy kell elutalni a cégalapítás illetékét</a></li>
+          </ul>
+        </li>
+        <li class="navbar-item">
+          <a href="#contact" class="navbar-link" data-i18n="nav.contact">Kapcsolat</a>
+        </li>
+        <li class="navbar-item">
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+        </li>
+        <L class="navbar-item">
+          <button class="lang-toggle" data-lang="hu" aria-label="Magyar nyelv">HU</button>
+          <button class="lang-toggle" data-lang="en" aria-label="English language">EN</button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-circle left" data-tilt>
+      <img src="assets/images/dog.jpg" alt="Your left image description" loading="lazy">
+    </div>
+    <div class="hero-circle right" data-tilt>
+      <img src="assets/images/hero-banner.jpg" alt="Your right image description" loading="lazy">
+    </div>
+    <div class="hero-content">
+      <h1 class="typing-text" data-i18n="hero.title">Okos Irodakezelés Magyar Vállalkozásoknak</h1>
+      <p data-i18n="hero.description">Rugalmas címoldalak, amelyek igazodnak az igényeihez – beolvasott levelek, 24 órán belüli adókártya, és zökkenőmentes jogi megfelelőség</p>
+      <div class="hero-price" data-tilt data-i18n="hero.price">CSAK 164 Ft / nap</div>
+      <div class="hero-buttons">
+        <a href="#pricing" class="btn btn-primary" data-i18n="hero.view-pricing">Áraink megtekintése</a>
+        <a href="#contact" class="btn btn-outline" data-i18n="hero.free-consultation">Ingyenes konzultáció</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing-section" id="pricing">
+    <div class="section-title">
+      <h2 data-i18n="pricing.title">Áraink</h2>
+      <p data-i18n="pricing.description">Válassza ki az Önnek megfelelő csomagot. Minden csomagunk tartalmazza a székhelyszolgáltatás alapvető elemeit.</p>
+    </div>
+    <div class="main-price" data-tilt data-i18n="pricing.price">CSAK 164 Ft / nap</div>
+    <button class="pricing-btn" data-i18n="pricing.select">Kiválasztom</button>
+  </section>
+
+  <section class="features-section">
+    <div class="section-title">
+      <h2 data-i18n="features.title">Miért válasszon minket?</h2>
+      <p data-i18n="features.description">Modern megoldások, megbízható szolgáltatás és kiváló ügyfélszolgálat.</p>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+        <h3 class="feature-title" data-i18n="features.legal-safety-title">Jogilag biztonságos</h3>
+        <p class="feature-text" data-i18n="features.legal-safety-text">Székhelyünk teljes mértékben megfelel a magyar jogszabályoknak, így vállalkozása teljes biztonságban van.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-bolt"></i></div>
+        <h3 class="feature-title" data-i18n="features.fast-notification-title">Gyors értesítés</h3>
+        <p class="feature-text" data-i18n="features.fast-notification-text">Azonnal értesítjük Önt minden érkező levélről, hogy fontos dokumentumokhoz azonnal hozzáférhessen.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-envelope-open-text"></i></div>
+        <h3 class="feature-title" data-i18n="features.digital-archive-title">Digitális archívum</h3>
+        <p class="feature-text" data-i18n="features.digital-archive-text">Minden érkező levelet digitalizálunk és biztonságosan archiválunk, bármikor elérhetőek lesznek.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-headset"></i></div>
+        <h3 class="feature-title" data-i18n="features.customer-support-title">Ügyfélszolgálat</h3>
+        <p class="feature-text" data-i18n="features.customer-support-text">Szakképzett ügyfélszolgálatunk minden nap elérhető, hogy bármilyen kérdésében segítsen.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <h3 class="feature-title" data-i18n="features.prime-location-title">Kiváló helyen</h3>
+        <p class="feature-text" data-i18n="features.prime-location-text">Irodánk Budapest belvárosában található, könnyen megközelíthető helyen, professzionális környezetben.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fas fa-euro-sign"></i></div>
+        <h3 class="feature-title" data-i18n="features.transparent-pricing-title">Átlátható díjszabás</h3>
+        <p class="feature-text" data-i18n="features.transparent-pricing-text">Nincsenek rejtett költségek, minden szolgáltatásunk díja előre egyértelműen meghatározott.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contact">
+    <div class="contact-container">
+      <div class="contact-info">
+        <h3 data-i18n="contact.title">Lépjen velünk kapcsolatba</h3>
+        <p data-i18n="contact.description">Kérdése van székhelyszolgáltatásunkkal kapcsolatban? Írjon nekünk vagy hívjon minket bizalommal.</p>
+        <div class="contact-details">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <h4 data-i18n="contact.address-title">Címünk</h4>
+              <p data-i18n="contact.address">1052 Budapest, Petőfi Sándor utca 5.</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+            <div>
+              <h4 data-i18n="contact.phone-title">Telefon</h4>
+              <p>+36 1 234 5678</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+            <div>
+              <h4 data-i18n="contact.email-title">Email</h4>
+              <p>info@szabo.hu</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-form">
+        <form id="contact-form" action="mailto:info@szabo.hu" method="post" enctype="text/plain">
+          <div class="form-group">
+            <label for="name" class="form-label" data-i18n="contact.form.name">Név</label>
+            <input type="text" id="name" name="name" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="email" class="form-label" data-i18n="contact.form.email">Email cím</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="phone" class="form-label" data-i18n="contact.form.phone">Telefonszám</label>
+            <input type="tel" id="phone" name="phone" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="message" class="form-label" data-i18n="contact.form.message">Üzenet</label>
+            <textarea id="message" name="message" class="form-control" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn" data-i18n="contact.form.submit">Üzenet küldése</button>
+          <div class="form-message" id="form-message"></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <div class="footer-logo">Szabó</div>
+        <p data-i18n="footer.about">Modern székhelyszolgáltatást nyújtunk vállalkozásoknak Budapesten. Célunk, hogy megkönnyítsük ügyfeleink üzleti tevékenységét.</p>
+        <div class="social-links">
+          <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4 class="footer-title" data-i18n="footer.registered-office">Székhelyszolgáltatás</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link" data-i18n="footer.prices">Árak</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer.services">Szolgáltatások</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer.faq">GYIK</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer.contract">Szerződés</a></li>
+        </ul>
+      </div>
+      <div class="footer-links">
+        <h4 class="footer-title" data-i18n="footer.company-formation">Cégalapítás</h4>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link" data-i18n="footer.ltd-formation">Kft alapítás</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer.partnership-formation">Bt alapítás</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer.company-name-selection">Cégnév választás</a></li>
+          <li><a href="#" class="footer-link" data-i18n="footer.registered-office-change">Székhely váltás</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p data-i18n="footer.copyright">© 2025 Szabó. Minden jog fenntartva.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Translations
+    const translations = {
+      hu: {
+        title: "Premium Székhelyszolgáltatás Budapesten | Szabó",
+        meta: {
+          description: "Professzionális székhelyszolgáltatás Budapesten. Teljes körű irodakezelés, levelezési cím, digitális megoldások vállalkozásoknak.",
+          "og-description": "Professzionális székhelyszolgáltatás Budapesten. Teljes körű irodakezelés, levelezési cím, digitális megoldások vállalkozásoknak."
+        },
+        nav: {
+          "registered-office": "Székhelyszolgáltatás",
+          "what-is-registered-office": "Mi a székhely",
+          "office-service": "Székhely szolgálat",
+          "registered-office-service": "Székhely-szolgáltatás",
+          "registered-office-contract": "Székhelyszolgáltatás szerződés",
+          "contract-on-saturday": "Szerződés szombaton",
+          "registered-office-budapest": "Székhelyszolgáltatás Budapest",
+          "registered-office-sole-proprietors": "Székhelyszolgáltatás egyéni vállalkozóknak",
+          services: "Szolgáltatások",
+          "company-formation-budapest": "Cégalapítás Budapest",
+          "free-service": "Ingyen szolgáltatás",
+          "mail-scanning": "Levelek szkennelése",
+          authorization: "Meghatalmazás",
+          "tax-card-request": "Adókártya igénylés",
+          "delivery-agent": "Kézbesítési megbízott",
+          "mailing-address-service": "Levelezési cím szolgáltatás",
+          "company-formation": "Cégalapítás",
+          "company-name-selection": "Cégnév választás",
+          "how-to-start-business": "Hogyan kezdjünk a vállalkozásba",
+          "how-to-transfer-fee": "Hogy kell elutalni a cégalapítás illetékét",
+          contact: "Kapcsolat"
+        },
+        hero: {
+          title: "Okos Irodakezelés Magyar Vállalkozásoknak",
+          description: "Rugalmas címoldalak, amelyek igazodnak az igényeihez – beolvasott levelek, 24 órán belüli adókártya, és zökkenőmentes jogi megfelelőség",
+          price: "CSAK 164 Ft / nap",
+          "view-pricing": "Áraink megtekintése",
+          "free-consultation": "Ingyenes konzultáció"
+        },
+        pricing: {
+          title: "Áraink",
+          description: "Válassza ki az Önnek megfelelő csomagot. Minden csomagunk tartalmazza a székhelyszolgáltatás alapvető elemeit.",
+          price: "CSAK 164 Ft / nap",
+          select: "Kiválasztom"
+        },
+        features: {
+          title: "Miért válasszon minket?",
+          description: "Modern megoldások, megbízható szolgáltatás és kiváló ügyfélszolgálat.",
+          "legal-safety-title": "Jogilag biztonságos",
+          "legal-safety-text": "Székhelyünk teljes mértékben megfelel a magyar jogszabályoknak, így vállalkozása teljes biztonságban van.",
+          "fast-notification-title": "Gyors értesítés",
+          "fast-notification-text": "Azonnal értesítjük Önt minden érkező levélről, hogy fontos dokumentumokhoz azonnal hozzáférhessen.",
+          "digital-archive-title": "Digitális archívum",
+          "digital-archive-text": "Minden érkező levelet digitalizálunk és biztonságosan archiválunk, bármikor elérhetőek lesznek.",
+          "customer-support-title": "Ügyfélszolgálat",
+          "customer-support-text": "Szakképzett ügyfélszolgálatunk minden nap elérhető, hogy bármilyen kérdésében segítsen.",
+          "prime-location-title": "Kiváló helyen",
+          "prime-location-text": "Irodánk Budapest belvárosában található, könnyen megközelíthető helyen, professzionális környezetben.",
+          "transparent-pricing-title": "Átlátható díjszabás",
+          "transparent-pricing-text": "Nincsenek rejtett költségek, minden szolgáltatásunk díja előre egyértelműen meghatározott."
+        },
+        contact: {
+          title: "Lépjen velünk kapcsolatba",
+          description: "Kérdése van székhelyszolgáltatásunkkal kapcsolatban? Írjon nekünk vagy hívjon minket bizalommal.",
+          "address-title": "Címünk",
+          address: "1052 Budapest, Petőfi Sándor utca 5.",
+          "phone-title": "Telefon",
+          "email-title": "Email",
+          form: {
+            name: "Név",
+            email: "Email cím",
+            phone: "Telefonszám",
+            message: "Üzenet",
+            submit: "Üzenet küldése"
+          }
+        },
+        footer: {
+          about: "Modern székhelyszolgáltatást nyújtunk vállalkozásoknak Budapesten. Célunk, hogy megkönnyítsük ügyfeleink üzleti tevékenységét.",
+          "registered-office": "Székhelyszolgáltatás",
+          prices: "Árak",
+          services: "Szolgáltatások",
+          faq: "GYIK",
+          contract: "Szerződés",
+          "company-formation": "Cégalapítás",
+          "ltd-formation": "Kft alapítás",
+          "partnership-formation": "Bt alapítás",
+          "company-name-selection": "Cégnév választás",
+          "registered-office-change": "Székhely váltás",
+          copyright: "© 2025 Szabó. Minden jog fenntartva."
+        }
+      },
+      en: {
+        title: "Premium Registered Office Service in Budapest | Szabó",
+        meta: {
+          description: "Professional registered office service in Budapest. Comprehensive office management, mailing address, and digital solutions for businesses.",
+          "og-description": "Professional registered office service in Budapest. Comprehensive office management, mailing address, and digital solutions for businesses."
+        },
+        nav: {
+          "registered-office": "Registered Office Service",
+          "what-is-registered-office": "What is a Registered Office",
+          "office-service": "Office Service",
+          "registered-office-service": "Registered Office Service",
+          "registered-office-contract": "Registered Office Contract",
+          "contract-on-saturday": "Contract on Saturday",
+          "registered-office-budapest": "Registered Office in Budapest",
+          "registered-office-sole-proprietors": "Registered Office for Sole Proprietors",
+          services: "Services",
+          "company-formation-budapest": "Company Formation in Budapest",
+          "free-service": "Free Service",
+          "mail-scanning": "Mail Scanning",
+          authorization: "Authorization",
+          "tax-card-request": "Tax Card Request",
+          "delivery-agent": "Delivery Agent",
+          "mailing-address-service": "Mailing Address Service",
+          "company-formation": "Company Formation",
+          "company-name-selection": "Company Name Selection",
+          "how-to-start-business": "How to Start a Business",
+          "how-to-transfer-fee": "How to Transfer the Company Formation Fee",
+          contact: "Contact"
+        },
+        hero: {
+          title: "Smart Office Management for Hungarian Businesses",
+          description: "Flexible address solutions tailored to your needs – scanned mail, tax card within 24 hours, and seamless legal compliance",
+          price: "ONLY 164 Ft / day",
+          "view-pricing": "View Our Pricing",
+          "free-consultation": "Free Consultation"
+        },
+        pricing: {
+          title: "Our Pricing",
+          description: "Choose the package that suits you. All our packages include the essential elements of registered office services.",
+          price: "ONLY 164 Ft / day",
+          select: "Select"
+        },
+        features: {
+          title: "Why Choose Us?",
+          description: "Modern solutions, reliable service, and excellent customer support.",
+          "legal-safety-title": "Legally Secure",
+          "legal-safety-text": "Our registered office fully complies with Hungarian regulations, ensuring your business is completely secure.",
+          "fast-notification-title": "Fast Notification",
+          "fast-notification-text": "We notify you immediately about all incoming mail, so you can access important documents right away.",
+          "digital-archive-title": "Digital Archive",
+          "digital-archive-text": "All incoming mail is digitized and securely archived, accessible anytime.",
+          "customer-support-title": "Customer Support",
+          "customer-support-text": "Our professional customer support is available every day to assist with any questions.",
+          "prime-location-title": "Prime Location",
+          "prime-location-text": "Our office is located in downtown Budapest, in an easily accessible, professional environment.",
+          "transparent-pricing-title": "Transparent Pricing",
+          "transparent-pricing-text": "No hidden costs; all our service fees are clearly defined upfront."
+        },
+        contact: {
+          title: "Get in Touch",
+          description: "Have questions about our registered office services? Write to us or call us with confidence.",
+          "address-title": "Our Address",
+          address: "1052 Budapest, Petőfi Sándor utca 5.",
+          "phone-title": "Phone",
+          "email-title": "Email",
+          form: {
+            name: "Name",
+            email: "Email Address",
+            phone: "Phone Number",
+            message: "Message",
+            submit: "Send Message"
+          }
+        },
+        footer: {
+          about: "We provide modern registered office services for businesses in Budapest. Our goal is to simplify our clients' business operations.",
+          "registered-office": "Registered Office Service",
+          prices: "Pricing",
+          services: "Services",
+          faq: "FAQ",
+          contract: "Contract",
+          "company-formation": "Company Formation",
+          "ltd-formation": "Ltd Formation",
+          "partnership-formation": "Partnership Formation",
+          "company-name-selection": "Company Name Selection",
+          "registered-office-change": "Registered Office Change",
+          copyright: "© 2025 Szabó. All rights reserved."
+        }
+      }
+    };
+
+    // Language Toggle
+    function setLanguage(lang) {
+      document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        const keys = key.split('.');
+        let value = translations[lang];
+        for (const k of keys) {
+          value = value[k];
+          if (!value) break;
+        }
+        if (value) {
+          if (element.tagName === 'META') {
+            element.setAttribute('content', value);
+          } else {
+            element.innerHTML = value;
+          }
+        }
+      });
+      document.documentElement.lang = lang;
+      document.querySelectorAll('.lang-toggle').forEach(btn => {
+        btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+      });
+      localStorage.setItem('language', lang);
+    }
+
+    const savedLanguage = localStorage.getItem('language') || 'hu';
+    setLanguage(savedLanguage);
+
+    document.querySelectorAll('.lang-toggle').forEach(button => {
+      button.addEventListener('click', () => {
+        const lang = button.getAttribute('data-lang');
+        setLanguage(lang);
+        const typingText = document.querySelector('.typing-text');
+        const text = translations[lang].hero.title;
+        typingText.textContent = '';
+        let i = 0;
+        function type() {
+          if (i < text.length) {
+            typingText.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, 50);
+          }
+        }
+        setTimeout(type, 500);
+      });
+    });
+
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector('i');
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    body.setAttribute('data-theme', savedTheme);
+    themeIcon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'white' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      themeIcon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+      localStorage.setItem('theme', newTheme);
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navbarList = document.querySelector('.navbar-list');
+    mobileMenuBtn.addEventListener('click', () => {
+      navbarList.classList.toggle('active');
+    });
+
+    // Dropdown menu toggle
+    const navbarItems = document.querySelectorAll('.navbar-item');
+    navbarItems.forEach(item => {
+      const link = item.querySelector('.navbar-link');
+      const dropdown = item.querySelector('.dropdown-menu');
+      if (dropdown) {
+        link.addEventListener('click', (e) => {
+          if (window.innerWidth <= 992) {
+            e.preventDefault();
+            item.classList.toggle('active');
+            navbarItems.forEach(otherItem => {
+              if (otherItem !== item) {
+                otherItem.classList.remove('active');
+              }
+            });
+          }
+        });
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.navbar-item') && window.innerWidth <= 992) {
+        navbarItems.forEach(item => {
+          item.classList.remove('active');
+        });
+      }
+    });
+
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Hero typing effect
+    const typingText = document.querySelector('.typing-text');
+    const text = translations[savedLanguage].hero.title;
+    typingText.textContent = '';
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        typingText.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, 50);
+      }
+    }
+    setTimeout(type, 500);
+
+    gsap.from('.hero-content', {
+      opacity: 0,
+      y: 50,
+      duration: 1.5,
+      ease: 'power3.out'
+    });
+
+    gsap.to('.hero-bg', {
+      y: 50,
+      scrollTrigger: {
+        trigger: '.hero',
+        scrub: true
+      }
+    });
+
+    // Hero circle animations
+    gsap.from('.hero-circle.left', {
+      opacity: 0,
+      x: -100,
+      duration: 1.5,
+      ease: 'power3.out',
+      delay: 0.5
+    });
+
+    gsap.from('.hero-circle.right', {
+      opacity: 0,
+      x: 100,
+      duration: 1.5,
+      ease: 'power3.out',
+      delay: 0.7
+    });
+
+    gsap.to('.hero-circle.left', {
+      y: 30,
+      repeat: -1,
+      yoyo: true,
+      duration: 3,
+      ease: 'sine.inOut'
+    });
+
+    gsap.to('.hero-circle.right', {
+      y: -30,
+      repeat: -1,
+      yoyo: true,
+      duration: 3.5,
+      ease: 'sine.inOut'
+    });
+
+    VanillaTilt.init(document.querySelectorAll('.hero-price, .main-price, .hero-circle'), {
+      max: 15,
+      speed: 400,
+      glare: true,
+      'max-glare': 0.3
+    });
+
+    gsap.utils.toArray('.feature-card').forEach((card, index) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        delay: index * 0.2,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%'
+        }
+      });
+    });
+
+    gsap.from('.contact-container > *', {
+      opacity: 0,
+      x: -50,
+      duration: 1,
+      stagger: 0.3,
+      scrollTrigger: {
+        trigger: '.contact-section',
+        start: 'top 80%'
+      }
+    });
+
+    // EmailJS Integration
+    (function(){
+      emailjs.init('YOUR_PUBLIC_KEY'); // Replace with your EmailJS public key
+    })();
+
+    const contactForm = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        showMessage('Kérjük, töltse ki az összes kötelező mezőt.', 'error', translations[savedLanguage].contact.form);
+        return;
+      }
+
+      const templateParams = {
+        from_name: name,
+        from_email: email,
+        phone: phone || 'N/A',
+        message: message
+      };
+
+      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(() => {
+          showMessage('Üzenet sikeresen elküldve!', 'success', translations[savedLanguage].contact.form);
+          contactForm.reset();
+        }, (error) => {
+          showMessage('Hiba történt az üzenet küldése közben. Kérjük, próbálja újra később.', 'error', translations[savedLanguage].contact.form);
+          console.error('EmailJS error:', error);
+        });
+    });
+
+    function showMessage(text, type, formTranslations) {
+      formMessage.textContent = type === 'success' ? 
+        (savedLanguage === 'hu' ? 'Üzenet sikeresen elküldve!' : 'Message sent successfully!') : 
+        (savedLanguage === 'hu' ? 'Hiba történt az üzenet küldése közben. Kérjük, próbálja újra később.' : 'An error occurred while sending the message. Please try again later.');
+      formMessage.className = `form-message ${type}`;
+      formMessage.style.display = 'block';
+      setTimeout(() => {
+        formMessage.style.display = 'none';
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

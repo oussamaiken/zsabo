@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Professzionális Székhelyszolgáltatás Budapesten | meghatalmazott.hu</title>
+  <meta name="description" content="Professzionális székhelyszolgáltatás Budapesten. Teljes körű irodakezelés, levelezési cím, digitális megoldások vállalkozásoknak.">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+  <style>
+    :root {
+      /* Dark Theme */
+      --bg-dark: #0a0a1a;
+      --text-light: #e6e6e6;
+      --blue-accent: #1e90ff;
+      --blue-dark: #1c3d7a;
+      --blue-light: #87cefa;
+      --card-bg: rgba(20, 20, 40, 0.8);
+      --glass-bg: rgba(255, 255, 255, 0.05);
+      --box-shadow: 0 8px 32px rgba(30, 144, 255, 0.2);
+      --text-dark: #333;
+
+      /* Default to Dark Theme */
+      --bg-color: var(--bg-dark);
+      --text-color: var(--text-light);
+      --card-bg-color: var(--card-bg);
+      --glass-bg-color: var(--glass-bg);
+      --box-shadow-color: var(--box-shadow);
+    }
+
+    /* White Theme */
+    [data-theme="white"] {
+      --bg-color: #f5f7fa;
+      --text-color: var(--text-dark);
+      --card-bg-color: rgba(255, 255, 255, 0.9);
+      --glass-bg-color: rgba(255, 255, 255, 0.3);
+      --box-shadow-color: 0 8px 32px rgba(30, 144, 255, 0.3);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-color);
+      background: var(--bg-color);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Navbar */
+    nav.navbar {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      padding: 15px 5%;
+    }
+
+    [data-theme="white"] nav.navbar {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
+    nav.navbar.scrolled {
+      background: rgba(0, 0, 0, 0.9);
+      box-shadow: var(--box-shadow-color);
+    }
+
+    [data-theme="white"] nav.navbar.scrolled {
+      background: rgba(255, 255, 255, 0.95);
+    }
+
+    .navbar-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .navbar-brand {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      text-decoration: none;
+    }
+
+    .navbar-list {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .navbar-item {
+      position: relative;
+    }
+
+    .navbar-link {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      padding: 10px;
+      display: block;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .navbar-link:hover {
+      color: var(--blue-accent);
+    }
+
+    .navbar-link::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 10px;
+      width: 0;
+      height: 2px;
+      background: var(--blue-accent);
+      transition: all 0.3s ease;
+    }
+
+    .navbar-link:hover::after {
+      width: calc(100% - 20px);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      display: none;
+      background: var(--card-bg-color);
+      border-radius: 10px;
+      padding: 10px 0;
+      top: 100%;
+      left: 0;
+      min-width: 220px;
+      box-shadow: var(--box-shadow-color);
+      z-index: 1001;
+    }
+
+    .navbar-item:hover .dropdown-menu {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+
+    .dropdown-link {
+      color: var(--text-color);
+      text-decoration: none;
+      display: block;
+      padding: 10px 20px;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-link:hover {
+      background: rgba(30, 144, 255, 0.1);
+      color: var(--blue-accent);
+      transform: translateX(5px);
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--blue-accent);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--blue-accent);
+      font-size: 1.3rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .theme-toggle:hover {
+      color: var(--blue-light);
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header Section */
+    header {
+      padding: 4rem 0;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(10, 10, 26, 0.9), rgba(30, 144, 255, 0.1));
+    }
+
+    [data-theme="white"] header {
+      background: linear-gradient(180deg, rgba(245, 247, 250, 0.9), rgba(30, 144, 255, 0.2));
+    }
+
+    .header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1563013544-824ae1b704d3') center/cover no-repeat;
+      z-index: -1;
+      transform: scale(1.1);
+    }
+
+    .header-content {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 40px;
+      background: var(--glass-bg-color);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: var(--box-shadow-color);
+    }
+
+    .header-content h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--blue-accent);
+    }
+
+    .header-content p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+
+    .price-highlight {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--blue-accent);
+      margin: 20px 0;
+      padding: 15px;
+      background: var(--glass-bg-color);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
+      display: inline-block;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 4rem 0;
+      background: var(--bg-color);
+    }
+
+    .hero-text {
+      background: var(--card-bg-color);
+      padding: 2.5rem;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow-color);
+      transition: all 0.3s ease;
+    }
+
+    .hero-text:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(30, 144, 255, 0.2);
+    }
+
+    .hero-text h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: var(--blue-accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-text p {
+      opacity: 0.8;
+    }
+
+    /* Grid Features */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+
+    .feature {
+      background: var(--card-bg-color);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow-color);
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 40px rgba(30, 144, 255, 0.2);
+    }
+
+    .feature i {
+      font-size: 2.5rem;
+      color: var(--blue-accent);
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .feature:hover i {
+      transform: rotate(360deg);
+    }
+
+    .feature h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: var(--blue-accent);
+    }
+
+    /* Card Sections */
+    .card {
+      background: var(--card-bg-color);
+      border-radius: 10px;
+      padding: 2.5rem;
+      margin: 2rem 0;
+      box-shadow: var(--box-shadow-color);
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 40px rgba(30, 144, 255, 0.2);
+    }
+
+    .card h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2rem;
+      color: var(--blue-accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card ul li {
+      padding: 0.8rem 0;
+      position: relative;
+      padding-left: 2rem;
+    }
+
+    .card ul li::before {
+      content: '✓';
+      color: var(--blue-light);
+      font-weight: bold;
+      position: absolute;
+      left: 0;
+    }
+
+    /* Contact Grid */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+    }
+
+    .contact-grid div {
+      background: var(--glass-bg-color);
+      padding: 1rem;
+      border-radius: 10px;
+    }
+
+    .contact-grid h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      color: var(--blue-accent);
+      margin-bottom: 0.5rem;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 12px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-accent {
+      background: var(--blue-accent);
+      color: var(--bg-dark);
+      border: 1px solid var(--blue-accent);
+    }
+
+    [data-theme="white"] .btn-accent {
+      color: #fff;
+    }
+
+    .btn-accent::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: 0.5s;
+    }
+
+    .btn-accent:hover::after {
+      left: 100%;
+    }
+
+    .btn-accent:hover {
+      transform: scale(1.05);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--card-bg-color);
+      padding: 60px 5% 20px;
+      color: var(--text-color);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 40px;
+    }
+
+    .footer-section {
+      text-align: left;
+    }
+
+    .footer-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--blue-accent);
+    }
+
+    .footer-section p {
+      opacity: 0.8;
+      margin-bottom: 20px;
+    }
+
+    .footer-section h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: var(--blue-accent);
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-link {
+      color: var(--text-color);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: all 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--blue-accent);
+      padding-left: 5px;
+    }
+
+    .copyright {
+      text-align: center;
+      padding-top: 20px;
+      border-top: 1px solid rgba(30, 144, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .navbar-list {
+        display: none;
+      }
+
+      .navbar-list.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--card-bg-color);
+        padding: 20px;
+        box-shadow: var(--box-shadow-color);
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      .dropdown-menu {
+        position: static;
+        background: rgba(30, 144, 255, 0.05);
+        box-shadow: none;
+      }
+
+      .navbar-item:hover .dropdown-menu {
+        display: none;
+      }
+
+      .navbar-item.active .dropdown-menu {
+        display: block;
+      }
+
+      .header-content {
+        padding: 30px;
+        max-width: 90%;
+      }
+
+      .header-content h1 {
+        font-size: 2.2rem;
+      }
+
+      .price-highlight {
+        font-size: 2rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .hero-text {
+        padding: 1.5rem;
+      }
+
+      .hero-text h2 {
+        font-size: 1.8rem;
+      }
+
+      .card h2 {
+        font-size: 1.8rem;
+      }
+
+      .price-highlight {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .price-highlight {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="navbar-brand">meghatalmazott.hu</a>
+      
+      <button class="mobile-menu-btn">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <ul class="navbar-list">
+        <li class="navbar-item">
+          <a href="#" class="navbar-link">Székhelyszolgáltatás</a>
+          <ul class="dropdown-menu">
+            <li><a href="mi-a-szekhely.html" class="dropdown-link">Mi a székhely</a></li>
+            <li><a href="Székhely_szolgálat.html" class="dropdown-link">Székhely szolgálat</a></li>
+            <li><a href="Székhely-szolgáltatás.html" class="dropdown-link">Székhely-szolgáltatás</a></li>
+            <li><a href="#" class="dropdown-link">Székhelyszolgáltatás szerződés</a></li>
+            <li><a href="#" class="dropdown-link">Szerződés szombaton</a></li>
+            <li><a href="#" class="dropdown-link">Székhelyszolgáltatás Budapest</a></li>
+            <li><a href="#" class="dropdown-link">Székhelyszolgáltatás egyéni vállalkozóknak</a></li>
+          </ul>
+        </li>
+        <li class="navbar-item">
+          <a href="#" class="navbar-link">Szolgáltatások</a>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="dropdown-link">Cégalapítás Budapest</a></li>
+            <li><a href="#" class="dropdown-link">Ingyen szolgáltatás</a></li>
+            <li><a href="#" class="dropdown-link">Levelek szkennelése</a></li>
+            <li><a href="#" class="dropdown-link">Meghatalmazás</a></li>
+            <li><a href="#" class="dropdown-link">Adókártya igénylés</a></li>
+            <li><a href="#" class="dropdown-link">Kézbesítési megbízott</a></li>
+            <li><a href="#" class="dropdown-link">Levelezési cím szolgáltatás</a></li>
+          </ul>
+        </li>
+        <li class="navbar-item">
+          <a href="#" class="navbar-link">Cégalapítás</a>
+          <ul class="dropdown-menu">
+            <li><a href="#" class="dropdown-link">Cégalapítás</a></li>
+            <li><a href="#" class="dropdown-link">Cégnév választás</a></li>
+            <li><a href="#" class="dropdown-link">Hogyan kezdjünk a vállalkozásba</a></li>
+            <li><a href="#" class="dropdown-link">Hogy kell elutalni a cégalapítás illetékét</a></li>
+          </ul>
+        </li>
+        <li class="navbar-item">
+          <a href="#contact" class="navbar-link">Kapcsolat</a>
+        </li>
+        <li class="navbar-item">
+          <button class="theme-toggle" aria-label="Toggle theme">
+            <i class="fas fa-moon"></i>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Header Section -->
+  <header>
+    <div class="header-bg"></div>
+    <div class="container">
+      <div class="header-content">
+        <h1 class="typing-text">Professzionális Székhelyszolgáltatás Budapesten</h1>
+        <div class="price-highlight" data-tilt>CSAK 164 Ft / nap</div>
+        <p>Teljes körű cégszolgáltatások - gyorsan, megbízhatóan, kedvező áron</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-text">
+        <h2>Mi a székhely és miért fontos?</h2>
+        <p>A székhely a cég központi ügyintézési helye, ahol a hivatalos levelek érkeznek. Itt kell tartani a hivatalos iratokat és fogadni az NAV ellenőröket. Nálunk nem csak címként szolgál, hanem teljes körű adminisztrációs támogatást is kap.</p>
+        <a href="#contact" class="btn btn-accent">Azonnali kapcsolat</a>
+      </div>
+    </section>
+
+    <!-- Features Grid -->
+    <div class="grid">
+      <div class="feature" data-tilt>
+        <i class="fas fa-envelope-open-text"></i>
+        <h3>Levelezés kezelése</h3>
+        <p>Leveleit díjmentesen szkenneljük és emailben továbbítjuk, így bárhonnan hozzáférhet a fontos dokumentumaihoz.</p>
+      </div>
+      <div class="feature" data-tilt>
+        <i class="fas fa-building"></i>
+        <h3>Cégalapítás</h3>
+        <p>Kkv-k és nagyvállalatok számára egyaránt, a legkedvezőbb áron, teljes jogi támogatással.</p>
+      </div>
+    </div>
+
+    <!-- Services Section -->
+    <section class="card">
+      <h2>Szolgáltatásaink</h2>
+      <ul>
+        <li><strong>Levelezési cím szolgáltatás</strong> - professzionális megjelenés a cégnek</li>
+        <li><strong>Adókártya igénylés</strong> - 1 nap alatt 10.000 Ft</li>
+        <li><strong>Teljes könyvelési szolgáltatás</strong> - tapasztalt szakembereinkkel</li>
+        <li><strong>Statisztikai szám igénylés</strong> - gyors és problémamentes</li>
+        <li><strong>APEH bejelentések</strong> - minden szükséges adminisztráció</li>
+        <li><strong>Vállalkozói tanácsadás</strong> - indulástól a növekedésig</li>
+      </ul>
+    </section>
+
+    <!-- Companies Section -->
+    <section class="card">
+      <h2>Cégeink és Székhelyeink</h2>
+      <ul>
+        <li><strong>THE LORD IS CARING KFT</strong> - 1083 Budapest, Baross utca 103. fszt. (modern irodaház belvárosi elhelyezkedésben)</li>
+        <li><strong>1906 AZUSA STREET KFT</strong> - 1083 Budapest, Práter u. 59. (könnyen megközelíthető központi helyen)</li>
+        <li><strong>FIVE TAILORS COMPANY</strong> - 1077 Budapest, Izabella u. 3/A. (premium irodakomplexum)</li>
+      </ul>
+      <p>Mindhárom irodánk könnyen megközelíthető, tömegközlekedési csomópontok közelében található, és professzionális recepciós kiszolgálással rendelkezik.</p>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="card">
+      <h2>Kapcsolat</h2>
+      <div class="contact-grid">
+        <div>
+          <h3>Irodavezető</h3>
+          <p>Szabó Guszti</p>
+        </div>
+        <div>
+          <h3>Email</h3>
+          <p><a href="mailto:info@meghatalmazott.hu">info@meghatalmazott.hu</a></p>
+        </div>
+        <div>
+          <h3>Telefon</h3>
+          <p><a href="tel:+36204635994">+36 20 463 5994</a></p>
+        </div>
+      </div>
+      <p>Kérdése van vagy szeretne időpontot foglalni? Vegye fel velünk a kapcsolatot bármelyik elérhetőségünkön!</p>
+    </section>
+
+    <!-- Company Details Section -->
+    <section class="card">
+      <h2>Elérhetőségeink és Adatok</h2>
+      <ul>
+        <li><strong>The Lord is Caring Kft</strong> - Adószám: 26698087-1-42 - Számlaszám: 10103104-29753800-01005008</li>
+        <li><strong>1906 Azusa Street Kft</strong> - Adószám: 26698197-1-42 - Számlaszám: 10103104-29753100-01005007</li>
+        <li><strong>Five Tailors Company Kft</strong> - Adószám: 26698166-1-42 - Számlaszám: 10103104-29757300-01005007</li>
+      </ul>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <div class="footer-logo">meghatalmazott.hu</div>
+        <p>Professzionális székhelyszolgáltatás Budapesten három különböző helyszínen, a legmodernebb irodaházakban.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Gyorslinkek</h3>
+        <ul class="footer-links">
+          <li><a href="#" class="footer-link">Szolgáltatások</a></li>
+          <li><a href="#" class="footer-link">Árak</a></li>
+          <li><a href="#" class="footer-link">GYIK</a></li>
+          <li><a href="#contact" class="footer-link">Kapcsolat</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h3>Elérhetőség</h3>
+        <p>1083 Budapest, Baross utca 103.</p>
+        <p>info@meghatalmazott.hu</p>
+        <p>+36 20 463 5994</p>
+      </div>
+    </div>
+    <div class="copyright">
+      <p>© 2025 meghatalmazott.hu | Székhelyszolgáltatás Budapesten, cégalapítás, könyvelés | Minden jog fenntartva</p>
+    </div>
+  </footer>
+
+  <script>
+    // Theme Toggle
+    const themeToggle = document.querySelector('.theme-toggle');
+    const body = document.body;
+    const themeIcon = themeToggle.querySelector('i');
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    body.setAttribute('data-theme', savedTheme);
+    themeIcon.className = savedTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = body.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'white' : 'dark';
+      body.setAttribute('data-theme', newTheme);
+      themeIcon.className = newTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+      localStorage.setItem('theme', newTheme);
+    });
+
+    // Navbar scroll effect
+    window.addEventListener('scroll', () => {
+      const navbar = document.querySelector('.navbar');
+      navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navbarList = document.querySelector('.navbar-list');
+    mobileMenuBtn.addEventListener('click', () => {
+      navbarList.classList.toggle('active');
+    });
+
+    // Dropdown menu toggle for desktop and mobile
+    const navbarItems = document.querySelectorAll('.navbar-item');
+    navbarItems.forEach(item => {
+      const link = item.querySelector('.navbar-link');
+      const dropdown = item.querySelector('.dropdown-menu');
+      if (dropdown) {
+        link.addEventListener('click', (e) => {
+          if (window.innerWidth <= 992) {
+            e.preventDefault();
+            item.classList.toggle('active');
+            navbarItems.forEach(otherItem => {
+              if (otherItem !== item) {
+                otherItem.classList.remove('active');
+              }
+            });
+          }
+        });
+      }
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.navbar-item') && window.innerWidth <= 992) {
+        navbarItems.forEach(item => {
+          item.classList.remove('active');
+        });
+      }
+    });
+
+    // GSAP Animations
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Header typing effect
+    const typingText = document.querySelector('.typing-text');
+    const text = typingText.textContent;
+    typingText.textContent = '';
+    let i = 0;
+    function type() {
+      if (i < text.length) {
+        typingText.textContent += text.charAt(i);
+        i++;
+        setTimeout(type, 50);
+      }
+    }
+    setTimeout(type, 500);
+
+    // Header content animation
+    gsap.from('.header-content', {
+      opacity: 0,
+      y: 50,
+      duration: 1.5,
+      ease: 'power3.out'
+    });
+
+    gsap.to('.header-bg', {
+      y: 50,
+      scrollTrigger: {
+        trigger: 'header',
+        scrub: true
+      }
+    });
+
+    // Price highlight tilt effect
+    VanillaTilt.init(document.querySelector('.price-highlight'), {
+      max: 15,
+      speed: 400,
+      glare: true,
+      'max-glare': 0.3
+    });
+
+    // Hero text animation
+    gsap.from('.hero-text', {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top 80%'
+      }
+    });
+
+    // Features animation
+    gsap.utils.toArray('.feature').forEach((feature, index) => {
+      gsap.from(feature, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        delay: index * 0.2,
+        scrollTrigger: {
+          trigger: feature,
+          start: 'top 80%'
+        }
+      });
+    });
+
+    // Features tilt effect
+    VanillaTilt.init(document.querySelectorAll('.feature'), {
+      max: 15,
+      speed: 400,
+      glare: true,
+      'max-glare': 0.3
+    });
+
+    // Card animations
+    gsap.utils.toArray('.card').forEach((card, index) => {
+      gsap.from(card, {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        delay: index * 0.2,
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%'
+        }
+      });
+    });
+
+    // Contact grid animation
+    gsap.from('.contact-grid > *', {
+      opacity: 0,
+      x: -50,
+      duration: 1,
+      stagger: 0.2,
+      scrollTrigger: {
+        trigger: '#contact',
+        start: ' top 80%'
+      }
+    });
+  </script>
+</body>
+</html>
